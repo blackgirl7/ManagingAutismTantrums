@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calming Strategy</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #content {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            width: 300px;
+        }
+
+        h1 {
+            color: #4682b4;
+        }
+
+        p {
+            color: #2f4f4f;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>Calming Strategy</h1>
+        <p id="strategy">Loading strategy...</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Extract emotion from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const emotion = urlParams.get('emotion');
+
+            // Define strategies based on emotions
+            const strategies = {
+                happy: "Encourage playtime and reward your child’s positive mood!",
+                upset: "Help your child calm down with deep breathing or soothing sounds.",
+                anxious: "Try a weighted blanket or a calming visual aid to reduce anxiety.",
+                angry: "Allow some space, then offer a calming activity like drawing or listening to music.",
+                calm: "Reinforce the calm mood by offering positive rewards or engaging activities."
+            };
+
+            // Display the strategy for the selected emotion
+            document.getElementById('strategy').innerText = strategies[emotion] || "No strategy available.";
+        });
+    </script>
+</body>
+</html>

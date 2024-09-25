@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalmMe: Tantrum Management</title>
+    <style>
+        /* General Page Styling */
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* App Container */
+        #app {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            width: 300px;
+        }
+
+        h1 {
+            color: #ff6347;
+        }
+
+        h2 {
+            color: #4682b4;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* Emotion Selector */
+        select {
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #4682b4;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        /* Buttons */
+        button {
+            background-color: #ff6347;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            padding: 10px 15px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #ee5c42;
+        }
+
+        /* Strategy and Timer Display */
+        p {
+            color: #2f4f4f;
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+        #calming-strategy {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>CalmMe</h1>
+
+        <!-- Emotion Tracker -->
+        <h2>How is your child feeling today?</h2>
+        <select id="emotion-select">
+            <option value="happy">Happy</option>
+            <option value="upset">Upset</option>
+            <option value="anxious">Anxious</option>
+            <option value="angry">Angry</option>
+            <option value="calm">Calm</option>
+        </select>
+        <button onclick="logEmotion()">Log Emotion</button>
+
+        <!-- Calming Strategy -->
+        <h2>Suggested Calming Strategy:</h2>
+        <p id="calming-strategy">Select an emotion to get a suggestion</p>
+
+        <!-- Routine Reminder -->
+        <h2>Routine Reminder:</h2>
+        <button onclick="startRoutine()">Start Routine</button>
+        <p id="routine-timer"></p>
+    </div>
+
+    <script>
+        // Logging emotions and suggesting calming strategies
+        const strategies = {
+            happy: "Encourage playtime!",
+            upset: "Try a breathing exercise or calming sound.",
+            anxious: "Use a visual aid or weighted blanket.",
+            angry: "Give space, offer a favorite calming activity.",
+            calm: "Reinforce with positive rewards."
+        };
+
+        function logEmotion() {
+            const emotion = document.getElementById('emotion-select').value;
+            document.getElementById('calming-strategy').innerText = strategies[emotion];
+            localStorage.setItem('lastEmotion', emotion);
+
+            // Redirect to a new page (emotion page)
+            setTimeout(() => {
+                window.location.href = `./calming-strategy.html?emotion=${emotion}`;
+            }, 1000); // Delay before redirection for a better user experience
+        }
+
+        // Routine Timer (Reminder for parents)
+        function startRoutine() {
+            let timeLeft = 10; // 10-minute reminder
+            const timerDisplay = document.getElementById('routine-timer');
+            const interval = setInterval(() => {
+                if (timeLeft > 0) {
+                    timerDisplay.innerText = `Routine will start in ${timeLeft} minutes.`;
+                    timeLeft--;
+                } else {
+                    timerDisplay.innerText = "Time for your calming routine!";
+                    clearInterval(interval);
+                }
+            }, 60000); // 1-minute interval
+        }
+    </script>
+</body>
+</html>
